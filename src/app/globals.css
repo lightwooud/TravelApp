@@ -29,4 +29,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    
 }
+
+.custom-width {
+  width: 980px; /* Puedes ajustar el valor según tus necesidades */
+}
+

@@ -1,20 +1,18 @@
-
-
 const Home = () => {
   return (
-    <div >
-    <video muted autoPlay loop src="/video.mp4" className="w-full h-auto"></video>
-    <div className="absolute inset-0 flex flex-col justify-center items-center  p-4 text-black">
-      <div className="absolute inset-0 flex flex-col justify-center items-center">
-        <div className="border border-white p-4 text-center bg-white relative z-10">
-          <h2 className="text-5xl font-bold font-serif">AGENDA TUS VACACIONES</h2>
-          <p className="text-3xl font-serif">TODAS TUS EXPERIENCIAS EN UN SOLO LUGAR</p>
+    <>
+      <div className="w-full">
+        <video muted autoPlay loop src="/video.mp4" className="w-full"></video>
+      </div>
+      <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
+        <div className="bg-white rounded-lg p-6">
+          <h2 className="text-5xl font-bold font-serif text-black">AGENDA TUS VACACIONES</h2>
+          <p className="text-3xl font-serif text-black">TODAS TUS EXPERIENCIAS EN UN SOLO LUGAR</p>
         </div>
       </div>
-    </div>
-  </div>
-  
+    </>
   );
 };
 
 export default Home;
+

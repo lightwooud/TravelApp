@@ -1,68 +1,41 @@
 'use client'
-import { useState } from 'react'
+
 import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import Link from 'next/link';
 
 
-function MobileNav({ open, setOpen }) {
-    const closeMobileNav = () => {
-      setTimeout(() => {
-        setOpen(!open);
-      }, 100);
+
+  
+export default function Navbar() {
+
+    const [nav, setNav] = useState(false);
+    const [color, setColor] = useState('transparent');
+    const [textColor, setTextColor] = useState('white');
+
+    const handleNav = () => {
+      setNav(!nav);
     };
   
+    useEffect(() => {
+      const changeColor = () => {
+        if (window.scrollY >= 1) {
+          setColor('#ffffff');
+          setTextColor('#000000');
+        } else {
+          setColor('transparent');
+          setTextColor('#ffffff');
+        }
+      };
+      window.addEventListener('scroll', changeColor);
+    }, []);
+
+  
+
     return (
-      <div
-        className={`absolute top-0 left-0 h-screen w-screen transform  ${
-          open ? "-translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out filter drop-shadow-md`}
-      >
-     
-        
-        <div className="flex flex-col ml-4 mt-40 items-center ">
-            <a
-                className="text-xl text-gray-600 font-bold hover:text-blue-400 my-2"
-                href="/home"
-                onClick={closeMobileNav}
-                >
-                Home
-            </a>
-          <a
-            className="text-lg text-gray-600 font-bold hover:text-blue-400 my-2"
-            href="/vuelos"
-            onClick={closeMobileNav}
-          >
-            Vuelos
-          </a>
-          <a
-            className="text-lg text-gray-600 font-bold hover:text-blue-400 my-2"
-            href="/alojamientos"
-            onClick={closeMobileNav}
-          >
-            Alojamientos
-          </a>
-          <a
-            className="text-lg text-gray-600 font-bold hover:text-blue-400 my-2"
-            href="/transportes"
-            onClick={closeMobileNav}
-          >
-            Transportes
-          </a>
-        </div>
-      </div>
-    );
-  }
-  
-  export default function Navbar() {
-    const [open, setOpen] = useState(false);
-  
-    const toggleMobileMenu = () => {
-      setOpen(!open);
-    };
-  
-    return (
-        <nav className="fixed top-0 left-0 right-0 px-4 py-2 flex justify-between items-center bg-white">
-        {/* MobileNav */}
-        <MobileNav open={open} setOpen={setOpen} />
+        <nav  style={{ backgroundColor: `${color}` }} className="fixed  left-0 right-0 px-4  m-auto  flex justify-between items-center  z-10">
+       
         
         {/* Logo */}
         <div className="w-full ml-5 md:w-auto">
@@ -76,48 +49,72 @@ function MobileNav({ open, setOpen }) {
             />
           </a>
         </div>
-        
-        {/* Botón hamburguesa para pantallas móviles */}
+         {/* Botón hamburguesa para pantallas móviles */}
+         <div onClick={handleNav} className='block sm:hidden z-50 '>
+          {nav ? (
+            <AiOutlineClose size={20} style={{ color: `${textColor}` }} />
+          ) : (
+            <AiOutlineMenu size={20} style={{ color: `${textColor}` }} />
+          )}
+        </div>
+
+        {/* Mobile Menu */}
         <div
-          className="z-50 flex relative w-8 h-8 flex-col justify-between items-center md:hidden"
-          onClick={toggleMobileMenu}
+          className={
+            nav
+              ? 'sm:hidden absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300'
+              : 'sm:hidden absolute top-0 left-[-200%] right-0 bottom-10 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300'
+          }
         >
-          {/* Botón hamburguesa */}
-          <span
-            className={`h-1 w-full bg-black rounded-lg transform transition duration-300 ease-in-out ${
-              open ? 'rotate-45 translate-y-3.5' : ''
-            }`}
-          />
-          <span
-            className={`h-1 w-full bg-black rounded-lg transition-all duration-300 ease-in-out ${
-              open ? 'w-0' : 'w-full'
-            }`}
-          />
-          <span
-            className={`h-1 w-full bg-black rounded-lg transform transition duration-300 ease-in-out ${
-              open ? '-rotate-45 -translate-y-3.5' : ''
-            }`}
-          />
+          <ul  >
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link href='/'>Home</Link>
+            </li>
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link href='/alojamientos'>Alojamientos</Link>
+            </li>
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link href='/vuelos'>Vuelos</Link>
+            </li>
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link href='/transportes'>Transportes</Link>
+            </li>
+          </ul>
         </div>
         
+       
         {/* Enlaces de navegación */}
-        <ul className="hidden md:flex items-center space-x-6">
-          <li><a className="text-lg text-gray-600 font-bold hover:text-blue-400" href="#">Home</a></li>
-          <li><a className="text-lg text-gray-600 font-bold hover:text-blue-400" href="#">Vuelos</a></li>
-          <li><a className="text-lg text-gray-600 font-bold hover:text-blue-400" href="#">Transportes</a></li>
-          <li><a className="text-lg text-gray-600 font-bold hover:text-blue-400" href="#">Alojamientos</a></li>
-        </ul>
-        
+
+        <ul className="hidden md:flex items-center space-x-6 ">
+            <li onClick={handleNav} className="text-lg text-black font-bold hover:text-blue-600">
+              <Link href='/'>Home</Link>
+            </li>
+            <li onClick={handleNav} className="text-lg text-black font-bold hover:text-blue-600">
+              <Link href='/alojamientos'>Alojamientos</Link>
+            </li>
+            <li onClick={handleNav}className="text-lg text-black font-bold hover:text-blue-600">
+              <Link href='/vuelos'>Vuelos</Link>
+            </li>
+            <li onClick={handleNav} className="text-lg text-black font-bold hover:text-blue-600">
+              <Link href='/transportes'>Transportes</Link>
+            </li>
+          </ul>
+
+      
         {/* Enlaces de inicio de sesión y registro */}
         <div className="mt-2 md:flex items-center space-x-6 mr-5">
-          <a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex">
+          <Link className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex" href='/transportes' >
             Sign in
-          </a>
-          <a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex">
+          </Link>
+          <Link className=" px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href='/transportes'>
             Sign Up
-          </a>
+          </Link>
         </div>
       </nav>
       
     );
   }
+
+
+
+  
