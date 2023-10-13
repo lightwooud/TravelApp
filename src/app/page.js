@@ -1,7 +1,6 @@
 
 import Navbar from '@/components/navbar/Navbar'
 import Home from '@/components/home/home'
-import HotelDetails from '@/components/paquetes/HoteImage'
 import Footer from '@/components/footer/Footer'
 
 export default function App() {

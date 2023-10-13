@@ -1,6 +1,8 @@
 const Home = () => {
   return (
+    
     <>
+    
       <div className="w-full">
         <video muted autoPlay loop src="/video.mp4" className="w-full"></video>
       </div>
@@ -10,7 +12,8 @@ const Home = () => {
           <p className="text-3xl font-serif text-black">TODAS TUS EXPERIENCIAS EN UN SOLO LUGAR</p>
         </div>
       </div>
-    </>
+      </>
+ 
   );
 };
 
