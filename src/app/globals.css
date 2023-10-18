@@ -36,3 +36,14 @@ body {
   width: 980px; /* Puedes ajustar el valor según tus necesidades */
 }
 
+.hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columnas de igual tamaño */ /* Altura mínima de 200px, auto para ajustar al contenido */
+  gap: 10px; /* Espacio entre elementos */
+  width: 80%;
+
+}
+
+.hotel-card {
+  width: 100%;
+}

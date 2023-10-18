@@ -103,10 +103,10 @@ export default function Navbar() {
       
         {/* Enlaces de inicio de sesión y registro */}
         <div className="mt-2 md:flex items-center space-x-6 mr-5">
-          <Link className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex" href='/transportes' >
+          <Link onClick={handleNav} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex" href='/registro' >
             Sign in
           </Link>
-          <Link className=" px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href='/transportes'>
+          <Link className=" px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href='/registro'>
             Sign Up
           </Link>
         </div>
