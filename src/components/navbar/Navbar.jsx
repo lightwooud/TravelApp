@@ -4,12 +4,14 @@ import Image from 'next/image'
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Link from 'next/link';
+import { signIn, useSession, signOut } from 'next-auth/react';
 
 
 
   
 export default function Navbar() {
 
+    const {data: session} = useSession()
     const [nav, setNav] = useState(false);
     const [color, setColor] = useState('transparent');
     const [textColor, setTextColor] = useState('white');
@@ -102,14 +104,27 @@ export default function Navbar() {
 
       
         {/* Enlaces de inicio de sesión y registro */}
-        <div className="mt-2 md:flex items-center space-x-6 mr-5">
-          <Link onClick={handleNav} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex" href='/registro' >
+        {session?.user ? (
+          <div className="mt-2 md:flex items-center space-x-6 mr-5">
+            <p>{session.user.name}</p>
+            <img src={session.user.image} alt=""    className='w-10 h-10 rounded-full cursor-pointer' />
+            <button onClick={()=> signOut()} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex">
+              LogOut
+            </button>
+          </div>
+         
+        ): (
+          <>
+          <button onClick={()=> signIn()} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex" >
             Sign in
-          </Link>
+          </button>
           <Link className=" px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href='/registro'>
             Sign Up
           </Link>
-        </div>
+          </>
+
+        )}
+        
       </nav>
       
     );

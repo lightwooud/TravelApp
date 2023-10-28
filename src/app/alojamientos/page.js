@@ -3,6 +3,7 @@ import Footer from '@/components/footer/Footer'
 import SearchAlojamientos from '@/components/search/SearchAlojamientos';
 
 
+
 const pageStyle = {
   position: "relative",
   minHeight: "100vh",
@@ -37,7 +38,6 @@ const page = () => {
     </div>
     <div style={contentStyle}>
       <SearchAlojamientos />
-      
     </div>
     <div style={footerStyle}>
       <Footer />
