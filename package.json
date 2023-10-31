@@ -16,7 +16,8 @@
     "next-auth": "^4.24.4",
     "react": "latest",
     "react-dom": "latest",
-    "react-icons": "^4.11.0"
+    "react-icons": "^4.11.0",
+    "sweetalert2": "^11.9.0"
   },
   "devDependencies": {
     "@types/react": "18.2.33",

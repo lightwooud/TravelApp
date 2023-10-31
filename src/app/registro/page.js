@@ -1,4 +1,4 @@
-import Registro from "@/components/registro/Registro"
+import Registro from "../components/registro/Registro"
 
 const page = () => {
   return (

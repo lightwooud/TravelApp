@@ -1,7 +1,6 @@
-import Navbar from '@/components/navbar/Navbar'
-
-import Footer from '@/components/footer/Footer'
-import SearchTrasnporte from '@/components/search/SearchTrasnporte';
+import Navbar from '../components/navbar/Navbar';
+import Footer from '../components/footer/Footer'
+import SearchTrasnporte from '../components/search/SearchTrasnporte';
 
 const pageStyle = {
   position: "relative",

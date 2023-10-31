@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Link from 'next/link';
-import { signIn, useSession, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 
 
@@ -105,7 +105,7 @@ export default function Navbar() {
       
         {/* Enlaces de inicio de sesión y registro */}
         {session?.user ? (
-          <div className="mt-2 md:flex items-center space-x-6 mr-5">
+          <div className="mt-2 md:flex items-center space-x-6 mr-5 text-black font-bold">
             <p>{session.user.name}</p>
             <img src={session.user.image} alt=""    className='w-10 h-10 rounded-full cursor-pointer' />
             <button onClick={()=> signOut()} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex">
@@ -114,14 +114,15 @@ export default function Navbar() {
           </div>
          
         ): (
-          <>
-          <button onClick={()=> signIn()} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex" >
-            Sign in
-          </button>
-          <Link className=" px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href='/registro'>
-            Sign Up
-          </Link>
-          </>
+          
+          <div className="flex space-x-4">
+            <Link className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href="/login">
+              Sign In
+            </Link>
+            <Link className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover-bg-gray-700 rounded-xl hidden md:flex" href="/registro">
+              Sign Up
+            </Link>
+          </div>
 
         )}
         

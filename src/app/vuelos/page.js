@@ -1,6 +1,6 @@
-import Navbar from '@/components/navbar/Navbar';
-import Footer from '@/components/footer/Footer';
-import SearchFlight from '@/components/search/SearchFlight';
+import Navbar from '../components/navbar/Navbar';
+import SearchFlight from '../components/search/SearchFlight'
+import Footer from '../components/footer/Footer'
 
 
 const pageStyle = {
