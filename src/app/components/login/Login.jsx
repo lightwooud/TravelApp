@@ -1,9 +1,65 @@
 'use client'
-import { signIn, useSession} from 'next-auth/react';
+import { signIn} from 'next-auth/react';
+import { useState } from 'react';
+import supabase from '../../api/auth/lib/supabase'
 import Link from "next/link";
 import Image from 'next/image'
+import Swal from 'sweetalert2';
 
 function  Login() {
+
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { user,data,error } = await supabase.auth.signInWithPassword({ email: correo, password: password })
+
+      console.log(user)
+      console.log(data)
+      
+      if (error) {
+        alert(e.message)
+        Swal.fire({
+          icon: 'failed',
+          title: 'Sesion fallida',
+          timer: 1000, // Muestra el mensaje durante 2 segundos (ajusta según tus preferencias)
+          showConfirmButton: false,
+      }).then(() => {
+          // Redirige al usuario a la página de inicio de sesión (/login) después de un breve retraso
+          setTimeout(() => {
+          window.location.href = '/'; // Cambia "/login" por la URL de tu página de inicio de sesión
+          }, 1000); // Redirige después de 2 segundos (ajusta el tiempo según tus preferencias)
+      });
+      
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: 'Sesion exitosa',
+          timer: 1000, // Muestra el mensaje durante 2 segundos (ajusta según tus preferencias)
+          showConfirmButton: false,
+      }).then(() => {
+          // Redirige al usuario a la página de inicio de sesión (/login) después de un breve retraso
+          setTimeout(() => {
+          window.location.href = '/'; // Cambia "/login" por la URL de tu página de inicio de sesión
+          }, 1000); // Redirige después de 2 segundos (ajusta el tiempo según tus preferencias)
+      });
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
+  const signIn = async ()=> {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'http://localhost:3000/alojamientos'
+      }
+    })
+  }
+  
 
   return (
     
@@ -22,7 +78,7 @@ function  Login() {
             </div>
           </a>
         </div>
-        <form className="mt-6">
+        <form className="mt-6" onSubmit={handleLogin}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -32,6 +88,9 @@ function  Login() {
             </label>
             <input
               type="email"
+              id="corre"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -44,11 +103,14 @@ function  Login() {
             </label>
             <input
               type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
           <div className="mt-2">
-            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+            <button type="submit" className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
               Sign In
             </button>
           </div>
@@ -59,7 +121,7 @@ function  Login() {
         </div>
         <div className="flex mt-4 gap-x-2">
           <button
-            onClick={()=> signIn('google', { callbackUrl: 'http://localhost:3000/' })}
+             onClick={()=> signIn()}
             className="flex items-center justify-center w-full p-2 border border-gray-600 rounded-md focus:ring-2 focus:ring-offset-1 focus:ring-violet-600"
           >
             <svg

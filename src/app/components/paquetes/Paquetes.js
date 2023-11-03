@@ -1,7 +1,7 @@
 'use client'
 // components/Paquetes.js
 import React, { useEffect, useState } from 'react';
-import getApiAlojamientos from '@/app/api/getApiAlojamientos';
+import getApiAlojamientos from '../../api/getApiAlojamientos';
 
 export default function Paquetes() {
   const [data, setData] = useState([]);

@@ -15,6 +15,20 @@ export default function Registro() {
   const [celular, setCelular] = useState('');
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
+
+  const signUpNewUser = async (e) =>{
+    e.preventDefault();
+    const { data, error } = await supabase.auth.signUp({
+      email: correo,
+      password: password,
+      options: {
+        redirectTo: 'http://localhost:3000/login'
+      }
+    })
+  }
+
+ 
+  
  
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -42,12 +56,7 @@ export default function Registro() {
             title: 'Usuario creado con éxito',
             timer: 2000, // Muestra el mensaje durante 2 segundos (ajusta según tus preferencias)
             showConfirmButton: false,
-        }).then(() => {
-            // Redirige al usuario a la página de inicio de sesión (/login) después de un breve retraso
-            setTimeout(() => {
-            window.location.href = '/login'; // Cambia "/login" por la URL de tu página de inicio de sesión
-            }, 2000); // Redirige después de 2 segundos (ajusta el tiempo según tus preferencias)
-        });
+        })
       }
     }
 
@@ -59,7 +68,12 @@ export default function Registro() {
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         CREA UNA CUENTA
                     </h1>
-                    <form  onSubmit={handleRegister} className="space-y-4 md:space-y-6 justify-center items-center text-black">
+                    <form onSubmit={(e) => {
+                                            e.preventDefault();
+                                            signUpNewUser(e);
+                                            handleRegister(e);
+                                            }} className="space-y-4 md:space-y-6 justify-center items-center text-black">
+ 
                         <div>
                             <label for="nombre" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                             <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)}/>

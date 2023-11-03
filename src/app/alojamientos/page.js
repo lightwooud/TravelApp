@@ -1,7 +1,7 @@
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer'
 import SearchAlojamientos from '../components/search/SearchAlojamientos';
-
+import Paquetes from '../components/paquetes/Paquetes'
 
 
 const pageStyle = {

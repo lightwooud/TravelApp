@@ -5,7 +5,7 @@ const getApiAlojamientos = async (DEST_ID, hotel_id) => {
   };
 
   try {
-    const response = await fetch(`https://apidojo-booking-v1.p.rapidapi.com/properties/list?arrival_date=2023-10-25&departure_date=2023-10-30&dest_ids=-578472`, {
+    const response = await fetch(`https://apidojo-booking-v1.p.rapidapi.com/properties/list?arrival_date=2023-10-30&departure_date=2023-11-05&dest_ids=-578472`, {
       method: 'GET',
       headers: headers,
     });
