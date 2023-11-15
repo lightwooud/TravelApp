@@ -1,11 +1,11 @@
-const getApiAlojamientos = async (DEST_ID, hotel_id) => {
+const getApiAlojamientos = async () => {
   const headers = {
     'X-RapidAPI-Key': 'f857b81827msh560bb78e1b6f5ccp1bb8dfjsn6a2c5fea18f4',
     'X-RapidAPI-Host': 'apidojo-booking-v1.p.rapidapi.com',
   };
 
   try {
-    const response = await fetch(`https://apidojo-booking-v1.p.rapidapi.com/properties/list?arrival_date=2023-10-30&departure_date=2023-11-05&dest_ids=-578472`, {
+    const response = await fetch(`https://apidojo-booking-v1.p.rapidapi.com/properties/list?arrival_date=2023-11-09&departure_date=2023-11-20&dest_ids=-578472`, {
       method: 'GET',
       headers: headers,
     });

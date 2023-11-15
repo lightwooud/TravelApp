@@ -13,11 +13,11 @@
     "@supabase/supabase-js": "^2.38.4",
     "axios": "^1.5.1",
     "next": "latest",
-    "next-auth": "^4.24.4",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^4.11.0",
-    "sweetalert2": "^11.9.0"
+    "sweetalert2": "^11.9.0",
+    "swiper": "^11.0.4"
   },
   "devDependencies": {
     "@types/react": "18.2.33",

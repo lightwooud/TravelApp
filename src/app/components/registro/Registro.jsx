@@ -56,7 +56,12 @@ export default function Registro() {
             title: 'Usuario creado con éxito',
             timer: 2000, // Muestra el mensaje durante 2 segundos (ajusta según tus preferencias)
             showConfirmButton: false,
-        })
+        }).then(() => {
+          // Redirige al usuario a la página de inicio de sesión (/login) después de un breve retraso
+          setTimeout(() => {
+          window.location.href = '/login'; // Cambia "/login" por la URL de tu página de inicio de sesión
+          }, 1000); // Redirige después de 2 segundos (ajusta el tiempo según tus preferencias)
+      });
       }
     }
 

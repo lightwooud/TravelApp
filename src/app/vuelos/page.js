@@ -30,18 +30,23 @@ const footerStyle = {
 
 const page = () => {
   return (
+
+     /* 
     <div style={pageStyle}>
       <div style={navbarStyle}>
         <Navbar />
       </div>
-      <div style={contentStyle}>
-        <SearchFlight />
-        
+      */
+      <div /*style={contentStyle}*/>
+         <SearchFlight />
       </div>
+      /*
       <div style={footerStyle}>
         <Footer />
       </div>
+    
     </div>
+    */
   );
 };
 

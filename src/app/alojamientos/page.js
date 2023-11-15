@@ -32,17 +32,23 @@ const footerStyle = {
 
 const page = () => {
   return (
+    /* 
     <div style={pageStyle}>
-    <div style={navbarStyle}>
-      <Navbar />
+      <div style={navbarStyle}>
+        <Navbar />
+      </div>
+      */
+      <div /*style={contentStyle}*/>
+        <SearchAlojamientos />
+        
+      </div>
+      /*
+      <div style={footerStyle}>
+        <Footer />
+      </div>
+    
     </div>
-    <div style={contentStyle}>
-      <SearchAlojamientos />
-    </div>
-    <div style={footerStyle}>
-      <Footer />
-    </div>
-  </div>
+    */
   )
 }
 

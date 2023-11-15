@@ -4,17 +4,34 @@ import Image from 'next/image'
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Link from 'next/link';
-//import { useSession, signOut } from 'next-auth/react';
+import supabase from '../../api/auth/lib/supabase'
 
 
 
   
 export default function Navbar() {
 
-    //const {data: session} = useSession()
+  
     const [nav, setNav] = useState(false);
     const [color, setColor] = useState('transparent');
     const [textColor, setTextColor] = useState('white');
+    const [session, setSession] = useState(null)
+
+  
+    useEffect(() => {
+      setSession(supabase.auth.getSession())
+
+      supabase.auth.onAuthStateChange((event, session) => {
+        console.log(event, session)
+        setSession(session)
+      })
+
+
+    },[])
+
+    
+
+  
 
     const handleNav = () => {
       setNav(!nav);
@@ -33,8 +50,19 @@ export default function Navbar() {
       window.addEventListener('scroll', changeColor);
     }, []);
 
-    async function signOut() {
-      const { error } = await supabase.auth.signOut()
+    
+
+    const handleLogout = async () => {
+      try{
+        const { error } = await supabase.auth.signOut()
+
+        if(error) throw error
+
+      }catch(e){
+        alert(e.message)
+      }
+
+      
     }
 
   
@@ -107,17 +135,21 @@ export default function Navbar() {
           </ul>
 
       
-        {/* Enlaces de inicio de sesión y registro */}
-       {/* {session?.user ? (
-          <div className="mt-2 md:flex items-center space-x-6 mr-5 text-black font-bold">
-            <p>{session.user.name}</p>
-            <img src={session.user.image} alt=""    className='w-10 h-10 rounded-full cursor-pointer' />
-            <button onClick={()=> signOut()} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex">
-              LogOut
-            </button>
-          </div>
-         
-       ): (*/}
+          {session != null ? (
+
+             <div className="mt-2 md:flex items-center space-x-6 mr-5 text-black font-bold">
+               
+                   <Link className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href="/perfil">
+                    Perfil
+                  </Link>
+              
+                    <button onClick={handleLogout} className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex">
+                      LogOut
+                    </button> 
+               
+           </div>
+          
+          ):(
           
           <div className="flex space-x-4">
             <Link className="px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-gray-700 rounded-xl hidden md:flex" href="/login">
@@ -127,8 +159,8 @@ export default function Navbar() {
               Sign Up
             </Link>
           </div>
-
-       {/* )}*/}
+        )}
+ 
         
       </nav>
       

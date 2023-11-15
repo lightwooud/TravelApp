@@ -42,3 +42,121 @@ export default function Paquetes() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+/*import React, { useState } from 'react';
+
+const MyPage = () => {
+  const [searchParams, setSearchParams] = useState({
+    destination: '',
+    checkInDate: '',
+    checkOutDate: '',
+    numPersons: 1,
+  });
+  const [destIds, setDestIds] = useState([]);
+  const [hotels, setHotels] = useState([]);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // Paso 1: Obtener "dest_ids" usando la API de autocompletar ubicaciones.
+    try {
+      const locationResponse = await fetch(
+        `https://apidojo-booking-v1.p.rapidapi.com/locations/auto-complete?text=${searchParams.destination}`,
+        {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': 'TU_API_KEY',
+          },
+        }
+      );
+      const locations = await locationResponse.json();
+      setDestIds(locations);
+
+      // Paso 2: Obtener hoteles usando los "dest_ids".
+      const destIdsList = locations.map((location) => location.dest_id).join(',');
+      const propertyResponse = await fetch(
+        `https://apidojo-booking-v1.p.rapidapi.com/properties/list?dest_ids=${destIdsList}&checkin=${searchParams.checkInDate}&checkout=${searchParams.checkOutDate}&adults=${searchParams.numPersons}`,
+        {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': 'TU_API_KEY',
+          },
+        }
+      );
+      const availableHotels = await propertyResponse.json();
+      setHotels(availableHotels);
+    } catch (error) {
+      console.error('Error al hacer la solicitud API', error);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleFormSubmit}>
+        <input
+          type="text"
+          placeholder="Destino"
+          value={searchParams.destination}
+          onChange={(e) =>
+            setSearchParams({ ...searchParams, destination: e.target.value })
+          }
+        />
+        <input
+          type="date"
+          placeholder="Fecha de Ida"
+          value={searchParams.checkInDate}
+          onChange={(e) =>
+            setSearchParams({ ...searchParams, checkInDate: e.target.value })
+          }
+        />
+        <input
+          type="date"
+          placeholder="Fecha de Regreso"
+          value={searchParams.checkOutDate}
+          onChange={(e) =>
+            setSearchParams({ ...searchParams, checkOutDate: e.target.value })
+          }
+        />
+        <input
+          type="number"
+          placeholder="Personas"
+          value={searchParams.numPersons}
+          onChange={(e) =>
+            setSearchParams({ ...searchParams, numPersons: e.target.value })
+          }
+        />
+        <button type="submit">Buscar Hoteles</button>
+      </form>
+      {destIds.length > 0 && (
+        <div>
+          <h2>Destino IDs:</h2>
+          <ul>
+            {destIds.map((location) => (
+              <li key={location.dest_id}>{location.dest_id}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {hotels.length > 0 && (
+        <div>
+          <h2>Hoteles Disponibles:</h2>
+          <ul>
+            {hotels.map((hotel) => (
+              <li key={hotel.hotel_id}>{hotel.hotel_name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MyPage;
+ */

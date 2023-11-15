@@ -7,9 +7,8 @@ export default function App() {
 
     <main className="flex  flex-col items-center justify-between ">
         
-          <Navbar />
           <Home />
-          <Footer />
+        
        
     </main>
   )

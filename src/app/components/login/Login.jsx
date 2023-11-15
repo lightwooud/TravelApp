@@ -1,5 +1,5 @@
 'use client'
-import { signIn} from 'next-auth/react';
+//import { signIn} from 'next-auth/react';
 import { useState } from 'react';
 import supabase from '../../api/auth/lib/supabase'
 import Link from "next/link";
@@ -18,7 +18,7 @@ function  Login() {
 
       console.log(user)
       console.log(data)
-      
+
       if (error) {
         alert(e.message)
         Swal.fire({
@@ -46,6 +46,7 @@ function  Login() {
           }, 1000); // Redirige después de 2 segundos (ajusta el tiempo según tus preferencias)
       });
       }
+
     } catch (error) {
       console.error('Error:', error.message);
     }
