@@ -41,9 +41,7 @@ const page = () => {
          <SearchFlight />
       </div>
       
-      <div style={footerStyle}>
-        <Footer />
-      </div>
+   
     
     </div>
     

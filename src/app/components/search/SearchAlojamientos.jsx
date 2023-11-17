@@ -62,6 +62,7 @@ const SearchAlojamientos = () => {
 
        if(response.ok){
         const data = await response.json();
+        console.log('datos de alojamiento',data)
         setData(data.result);
        
        }else {

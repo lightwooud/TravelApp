@@ -1,13 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import supabase from '../../api/auth/lib/supabase'
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Pagination } from "swiper/modules";
 import { RxArrowTopRight } from "react-icons/rx";
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
 
 const SearchFlight = () => {
 
@@ -21,7 +16,8 @@ const SearchFlight = () => {
     departureDate:'',
     returnDate:'',
     numberOfPeople: 1,
-    currency_code: "COP",  
+    currency_code: "COP", 
+    type: "AIRPORT" 
   });
 
 
@@ -38,10 +34,15 @@ const SearchFlight = () => {
         headers: headers,
       },
       )
-        const destino = await response.json();
-        console.log("Respuesta completa de la primera API:", destino);
-        const destinos = destino.map((dest)=>dest.id).join(',')
-        return destinos;
+      const destinoData = await response.json();
+
+      const airportDestinations = destinoData.data.filter((dest) => dest.type === 'AIRPORT');
+  
+      console.log("Datos de los aeropuertos:", airportDestinations);
+  
+      const destinos = airportDestinations.map((dest) => dest.id).join(',');
+  
+      return destinos;
 
     }catch(error) {
       console.error('Error al hacer la solicitud API primera', error);
@@ -58,7 +59,7 @@ const SearchFlight = () => {
       const destinationData = await searchDestination(selectedCity);
       const originData = await searchDestination(selectedCountry);
     try {
-      const response = await fetch(`https://booking-com15.p.rapidapi.com/api/v1/flights/searchFlights?fromId=${destinationData}&toId=${originData}&departDate=${searchParams.departureDate}&returnDate=${searchParams.returnDate}`,
+      const response = await fetch(`https://booking-com15.p.rapidapi.com/api/v1/flights/searchFlights?fromId=${destinationData}&toId=${originData}&departDate=${searchParams.departureDate}&returnDate=${searchParams.returnDate}&currency_code=${searchParams.currency_code}`,
       {
         method: 'GET',
         headers: headers,
@@ -66,13 +67,16 @@ const SearchFlight = () => {
       )
 
       if(response.ok){
-        const data = await response.json();
-        console.log("Datos de vuelos:", data);
-        setData(data.flightOffers);
+        
+        const responseData = await response.json();
+        const flightOffers = responseData.data.flightOffers || [];
+        console.log("Datos de vuelos:", flightOffers);
+        setData(flightOffers);
       
       }else {
         throw new Error('Error en la respuesta de la API');
       }
+
     }catch (error){
       throw new Error('Error en la respuesta de la API');
     }
@@ -105,11 +109,14 @@ const SearchFlight = () => {
     fetchCities();
   }, []);
 
-   
-    return (
+  useEffect(() => {
+    console.log('Data after API call:', data);
+  }, [data]);
+return (
 
-<>
-        <form onSubmit={searchFlights}>
+  <>
+  <div className='contenedor-buscador'>
+        <form onSubmit={searchFlights} className="mb-8">
 
               <div className=" absolute top-0 left-0  w-full flex flex-col justify-center flightOfferss-cente  h-96 ">
                 <div className=" flex flightOfferss-center justify-center   ">
@@ -188,74 +195,69 @@ const SearchFlight = () => {
             
           
           </form>
+    </div>
 
-          <div className="flex items-center justify-center flex-col h-[1300px] ">
+    <div className="flight-grid">
+  {  useEffect(() => {
+    console.log('after API call:', data);
+  }, [data])}
 
-          <Swiper
-            breakpoints={{
-              340: {
-                slidesPerView: 2,
-                spaceBetween: 15,
-              },
-              700: {
-                slidesPerView: 3,
-                spaceBetween: 15,
-              },
-            }}
-            freeMode={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[FreeMode, Pagination]}
-            className="max-w-[90%] lg:max-w-[80%] "
-          >
+    {console.log('Data Length:', data.length)}
+        {data.length > 0 && (
+          data.map((flightOffers) => (
+            <div key={flightOffers.token} className="flight-card mb-4 max-w-full">
+              
+                {console.log('data: ', data)}
+                {flightOffers.segments.map((segments, segIndex) => (
+                  <div key={segIndex}>
+                    <p className="text-black">
+                       Hora salida: {segments.departureTime}
+                    </p>
+                    <p className="text-black">
+                      Hora llegada: {segments.arrivalTime}
+                       
+                    </p>
+                    {segments.legs.map((legs, legIndex) =>(
+                        <div key={legIndex}>
+                          <p className="text-black">
+                            Ciudad origen: {legs.departureAirport.name}
+                          </p>
+                          <p className="text-black">
+                            Ciudad Destino: {legs.arrivalAirport.name}  
+                          </p>
+                          <p className="text-black">Numero de vuelo: {legs.flightInfo.carrierInfo.operatingCarrier}{legs.flightInfo.flightNumber}</p>
+                          <p className="text-black">Clase: {legs.cabinClass}</p>
 
-          {data.length > 0 &&(
-            data.map((flightOffers) => (
-              <SwiperSlide key={flightOffers.token}> 
-                <div className="flex flex-col gap-6 mb-20 group relative shadow-lg text-white rounded-xl px-6 py-8 h-[250px] w-[215px] lg:h-[400px] lg:w-[350px] overflow-hidden cursor-pointer">
-                  <div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${flightOffers.legs.carriersData.logo})` }}
-                    />
-                  <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50" />
-                      <div className="relative flex flex-col gap-3">
-                        <h1 className="text-xl lg:text-2xl">Origen{flightOffers.segments.departureAirport.name} </h1><h1 className="text-xl lg:text-2xl">Destino{flightOffers.segments.arrivalAirport.name} </h1>
-                        <p className="lg:text-[18px]">Hora de salida {flightOffers.segments.legs.departureTime}</p>
-                        <p className="lg:text-[18px]">Hora de llegada {flightOffers.segments.legs.arrivalTime}</p>
-                        <p className="lg:text-[18px]">Clase {flightOffers.segments.legs.cabinClass}{flightOffers.brandedFareInfo.fareName}</p>
-                        <p>Numero de vuelo {flightOffers.segments.legs.flightInfo.carrierInfo.operatingCarrier}{flightOffers.segments.legs.flightInfo.flightNumber}</p>
-                        <p>Aerolinea {flightOffers.segments.legs.carriersData.name}</p>
-                        <p>Precio {flightOffers.priceBreakdown.totalRounded.units}{flightOffers.priceBreakdown.totalRounded.currencyCode}</p>
-                      </div>
-                      <RxArrowTopRight className="absolute bottom-5 left-5 w-[35px] h-[35px] text-white group-hover:text-blue-500 group-hover:rotate-45 duration-100" />
-                    </div>
+                          {legs.carriersData.map((carriersData, carryIndex)=>(
+                            <div key={carryIndex}>
+                                  <p className="text-black">Aerolinea: {carriersData.name}</p>
+                            </div>
+                          ))}
+                          
+                          
+                        </div>
+                    ))}
+             
+                  </div>
+                ))}
+   
+       
+                       
+     
+                  <p className="text-black">Precio: {flightOffers.priceBreakdown.totalRounded.units} {flightOffers.priceBreakdown.totalRounded.currencyCode}</p>
                   
-                </SwiperSlide>
-            )))}
-            </Swiper>
+                
+              </div>
+                
+           ))
+          )}
+        
+        </div>
 
-
-          </div>
-
-         
 </>
         
-);
-
-       
-
-                     
-              
-        
+);      
     
 }
 
-
-
-
-
-
-
 export default SearchFlight
-
