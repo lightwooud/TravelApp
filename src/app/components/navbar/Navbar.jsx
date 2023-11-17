@@ -129,9 +129,9 @@ export default function Navbar() {
             <li onClick={handleNav}className="text-lg text-black font-bold hover:text-blue-600">
               <Link href='/vuelos'>Vuelos</Link>
             </li>
-            <li onClick={handleNav} className="text-lg text-black font-bold hover:text-blue-600">
+            {/*<li onClick={handleNav} className="text-lg text-black font-bold hover:text-blue-600">
               <Link href='/transportes'>Transportes</Link>
-            </li>
+        </li>*/}
           </ul>
 
       

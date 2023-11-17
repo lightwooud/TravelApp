@@ -28,20 +28,25 @@ const footerStyle = {
   flexShrink: 0,
 };
 
+
+
 const page = () => {
   return (
 
      
     <div style={pageStyle}>
-      <div style={navbarStyle}>
+      <div style={navbarStyle} className='absolute top-0 left-0  justify-center items-center'>
         <Navbar />
       </div>
       
       <div style={contentStyle}>
-         <SearchFlight />
+        <SearchFlight />
+        
       </div>
       
-   
+      <div style={footerStyle}>
+        <Footer />
+      </div>
     
     </div>
     

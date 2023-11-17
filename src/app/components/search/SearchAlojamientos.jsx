@@ -103,9 +103,7 @@ const SearchAlojamientos = () => {
   }, []);
   return (
     <>
-    
-        
-
+  
           <form onSubmit={handleFormSubmit}>
 
               <div className=" absolute top-0 left-0  w-full flex flex-col justify-center results-cente  h-96 ">

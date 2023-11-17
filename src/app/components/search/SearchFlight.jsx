@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import supabase from '../../api/auth/lib/supabase'
-import { RxArrowTopRight } from "react-icons/rx";
+import {searchDestination, searchFlights} from "../../api/getApiFlights"
+import ResultsFlights from './ResultsFlights';
 
 
 const SearchFlight = () => {
@@ -15,13 +16,36 @@ const SearchFlight = () => {
   const [searchParams, setSearchParams] = useState({
     departureDate:'',
     returnDate:'',
-    numberOfPeople: 1,
+    numberOfPeople: '',
     currency_code: "COP", 
     type: "AIRPORT" 
   });
 
+  const performSearch = async () => {
+    try {
+      const destinationData = await searchDestination(selectedCity);
+      const originData = await searchDestination(selectedCountry);
+      const flightData = await searchFlights(
+        destinationData,
+        originData,
+        searchParams.departureDate,
+        searchParams.returnDate,
+        searchParams.currency_code,
+        searchParams.numberOfPeople
+      );
+      
+      setData(flightData);
+    } catch (error) {
+      console.error('Error performing search:', error);
+    }
+  };
 
-  const searchDestination = async (cityName) =>{
+  const handleSearch = (e) => {
+    e.preventDefault();
+    performSearch();
+  };
+
+  {/*const searchDestination = async (cityName) =>{
     
     const headers = {
       'X-RapidAPI-Key': '8b7aa61bb9mshff93fad9a363e2ap102b86jsn8c63cc489812',
@@ -81,7 +105,7 @@ const SearchFlight = () => {
       throw new Error('Error en la respuesta de la API');
     }
   }
-    
+*/}
 
   useEffect(() => {
     async function fetchCountries() {
@@ -109,16 +133,13 @@ const SearchFlight = () => {
     fetchCities();
   }, []);
 
-  useEffect(() => {
-    console.log('Data after API call:', data);
-  }, [data]);
 return (
 
   <>
-  <div className='contenedor-buscador'>
-        <form onSubmit={searchFlights} className="mb-8">
+ 
+        <form onSubmit={handleSearch}>
 
-              <div className=" absolute top-0 left-0  w-full flex flex-col justify-center flightOfferss-cente  h-96 ">
+              <div className=" absolute top-0 left-0  w-full flex flex-col justify-center flightOfferss-cente   h-60 ">
                 <div className=" flex flightOfferss-center justify-center   ">
                     
                 <div className="w-auto pt-2 pl-20 pb-2  bg-white border rounded-md shadow-md custom-width">
@@ -195,64 +216,15 @@ return (
             
           
           </form>
-    </div>
 
-    <div className="flight-grid">
-  {  useEffect(() => {
-    console.log('after API call:', data);
-  }, [data])}
 
-    {console.log('Data Length:', data.length)}
-        {data.length > 0 && (
-          data.map((flightOffers) => (
-            <div key={flightOffers.token} className="flight-card mb-4 max-w-full">
-              
-                {console.log('data: ', data)}
-                {flightOffers.segments.map((segments, segIndex) => (
-                  <div key={segIndex}>
-                    <p className="text-black">
-                       Hora salida: {segments.departureTime}
-                    </p>
-                    <p className="text-black">
-                      Hora llegada: {segments.arrivalTime}
-                       
-                    </p>
-                    {segments.legs.map((legs, legIndex) =>(
-                        <div key={legIndex}>
-                          <p className="text-black">
-                            Ciudad origen: {legs.departureAirport.name}
-                          </p>
-                          <p className="text-black">
-                            Ciudad Destino: {legs.arrivalAirport.name}  
-                          </p>
-                          <p className="text-black">Numero de vuelo: {legs.flightInfo.carrierInfo.operatingCarrier}{legs.flightInfo.flightNumber}</p>
-                          <p className="text-black">Clase: {legs.cabinClass}</p>
-
-                          {legs.carriersData.map((carriersData, carryIndex)=>(
-                            <div key={carryIndex}>
-                                  <p className="text-black">Aerolinea: {carriersData.name}</p>
-                            </div>
-                          ))}
-                          
-                          
-                        </div>
-                    ))}
-             
-                  </div>
-                ))}
+         
+    
+         
+            <ResultsFlights data={data} />
    
-       
-                       
-     
-                  <p className="text-black">Precio: {flightOffers.priceBreakdown.totalRounded.units} {flightOffers.priceBreakdown.totalRounded.currencyCode}</p>
-                  
-                
-              </div>
-                
-           ))
-          )}
-        
-        </div>
+                              
+
 
 </>
         
