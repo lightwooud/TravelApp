@@ -140,9 +140,12 @@ return (
 
   <>
     <div>
+                  <div className="w-full h-screen relative">
+                    <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
+                    <div className="absolute inset-0 bg-black opacity-70"></div>
+                  </div>
       
         <form onSubmit={handleSearch}>
-
               <div className=" relative top-0 left-0  w-full flex flex-col justify-center flightOfferss-cente  h-60 ">
                 <div className=" flex flightOfferss-center justify-center   ">
                     
@@ -250,10 +253,7 @@ return (
               {data.length > 0 ? (
                  <ResultsFlights data={data} />
                 ) :(
-                  <div className="w-full h-screen relative">
-                    <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
-                    <div className="absolute inset-0 bg-black opacity-70"></div>
-                  </div>
+                <p>NO HAY DATOS</p>
                 )}
                  
                  
