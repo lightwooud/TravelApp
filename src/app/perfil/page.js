@@ -1,5 +1,5 @@
 import Navbar from "../components/navbar/Navbar"
-import Perfil from "../components/perfil/perfil"
+import Perfil from "../components/perfil/Perfil"
 import Footer from "../components/footer/Footer"
 const page = () => {
 
