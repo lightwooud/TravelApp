@@ -3,7 +3,7 @@ import {useEffect, useState } from 'react';
 import supabase from '../../api/auth/lib/supabase'
 import Swal from 'sweetalert2';
 
-function Perfil() {
+const Perfil = () => {
 
 
 

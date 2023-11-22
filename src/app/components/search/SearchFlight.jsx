@@ -139,12 +139,9 @@ const SearchFlight = () => {
 return (
 
   <>
-    <div>
+    
 
-      <div className="w-full h-screen relative">
-        <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
-        <div className="absolute inset-0 bg-black opacity-70"></div>
-      </div>
+     
 
       <form onSubmit={handleSearch}>
 
@@ -225,14 +222,17 @@ return (
       </form>
 
 
-  </div>
+ 
 
     
              
               {data.length > 0 ? (
                  <ResultsFlights data={data} />
                 ) :(
-                <p>NO HAY DATOS</p>
+                  <div className="w-full h-screen relative">
+                  <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
+                  <div className="absolute inset-0 bg-black opacity-70"></div>
+                </div>
                 )}
                  
                  
