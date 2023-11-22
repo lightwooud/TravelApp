@@ -140,113 +140,92 @@ return (
 
   <>
     <div>
-                  <div className="w-full h-screen relative">
-                    <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
-                    <div className="absolute inset-0 bg-black opacity-70"></div>
-                  </div>
-      
-        <form onSubmit={handleSearch}>
-              <div className=" relative top-0 left-0  w-full flex flex-col justify-center flightOfferss-cente  h-60 ">
-                <div className=" flex flightOfferss-center justify-center   ">
-                    
-                <div className="w-auto p-7 items-center bg-white border rounded-md shadow-md custom-width">
-                      <label className="inline-flex flightOfferss-center text-black">Tipo de vuelo:</label>
-                                <div className="flex items-center text-black">
-                                  <input
-                                    type="checkbox"
-                                    id="oneWayCheckbox"
-                                    checked={searchParams.type === "ONEWAY"}
-                                    onChange={() =>
-                                      setSearchParams({
-                                        ...searchParams,
-                                        type: searchParams.type === "ONEWAY" ? "ROUND_TRIP" : "ONEWAY",
-                                        returnDate: searchParams.type === "ONEWAY" ? "" : searchParams.returnDate,
-                                      })
-                                    }
-                                  />
-                                  <label htmlFor="oneWayCheckbox" className="ml-2">
-                                    Solo ida
-                                  </label>
-                                  </div>
-                    <div className="grid grid-cols-6  gap-4 text-black">
-                      
-                        <div className="row-span-1 col-span-1">
-                     
-                            <label className="inline-flex flightOfferss-center text-black">CIUDAD ORIGEN:</label>
-                            <Menu as="div" className="relative block text-left">
-                            <select
-                            value={selectedCity}
-                            onChange={(e) => setSelectedCity(e.target.value)}
-                            className=" block w-full py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
-                            >
-                            <option value="">CIUDAD DE DESTINO</option>
-                            {cities.map((city, index) => (
-                                <option  key={index} value={city}>
-                                {city}
-                                </option>
-                            ))}
-                            </select>
-                            </Menu>
-                        </div>
 
-                        <div className="row-span-1 col-span-1">
-                            <label className="inline-flex flightOfferss-center text-black">CIUDAD DESTINO:</label>
-                            <select
-                            value={selectedCountry}
-                            onChange={(e) => setSelectedCountry(e.target.value)}
-                            className="block w-full py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
-                            >
-                            <option value="">CIUDAD DE DESTINO</option>
-                            {cities.map((city, index) => (
-                                <option key={index} value={city}>
-                                {city}
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-        
-                        <div className="row-span-1 col-span-1">
-                            <label className="inline-flex flightOfferss-center text-black">SALIDA:</label>
-                            <input type="date"
-                           value={searchParams.departureDate}
-                           onChange={(e) =>setSearchParams({ ...searchParams, departureDate: e.target.value })}
-                            
-                            className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500" />
-                        </div>
+      <div className="w-full h-screen relative">
+        <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
+        <div className="absolute inset-0 bg-black opacity-70"></div>
+      </div>
 
-                        <div className="row-span-1 col-span-1">
-                            <label className="inline-flex flightOfferss-center text-black">REGRESO:</label>
-                            <input type="date" 
-                            value={searchParams.returnDate}
-                            onChange={(e) =>setSearchParams({ ...searchParams, returnDate: e.target.value })}
-                             className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500" disabled={searchParams.type === "ONEWAY"} />
-                        </div>
-                        <div className="row-span-1 col-span-1">
-                            <label className="inline-flex flightOfferss-center text-black">¿CUANTOS?:</label>
-                            <input type="number"
-                            value={searchParams.numberOfPeople}
-                            onChange={(e) =>setSearchParams({ ...searchParams, numberOfPeople: e.target.value })}
-                             className="block w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500" />
-                            
-                        </div>  
+      <form onSubmit={handleSearch}>
 
-                        <div className=" inline-flex flightOfferss-center pt-5 row-span-1 col-span-1">
-                            <button  type="submit" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Buscar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                </div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-screen-lg h-96">
+          {/* <div className=" flex flightOfferss-center justify-center   "> */}
 
-          
-                </div>
-            
-          
-          </form>
+          <div className="w-full bg-white rounded-2xl shadow-md mx-auto px-4 py-7">
+
+            <div className="flex gap-4 text-black">
+              <div className="w-full  sm:w-1/2 md:w-1/5">
+                <label className="inline-flex items-center text-gray-900 text-sm font-medium mb-1">CIUDAD ORIGEN:</label>
+                <select
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  className="block w-full bg-white py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+                >
+                  <option value="" className="text-gray-900 text-sm font-medium bg-white"
+                    style={{ color: 'black' }}>Ciudad de origen</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="w-full sm:w-1/2 md:w-1/5">
+                <label className="inline-flex items-center text-gray-900 text-sm font-medium mb-1">CIUDAD DESTINO:</label>
+                <select
+                  value={selectedCountry}
+                  onChange={(e) => setSelectedCountry(e.target.value)}
+                  className="block w-full bg-white py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+                >
+                  <option value="" className="text-gray-900 text-sm font-medium bg-white"
+                    style={{ color: 'black' }}>Ciudad de destino</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="w-full sm:w-1/2 md:w-1/5">
+                <label className="inline-flex items-center text-gray-900 text-sm font-medium mb-1">FECHA DE SALIDA:</label>
+                <input type="date"
+                  value={searchParams.departureDate}
+                  onChange={(e) => setSearchParams({ ...searchParams, departureDate: e.target.value })}
+
+                  className="w-full  border-0 border-gray-300  focus:outline-none focus:border-gray-500 inline-flex  justify-between gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" />
+              </div>
+
+              <div className="w-full sm:w-1/2 md:w-1/5">
+                <label className="inline-flex items-center text-gray-900 text-sm font-medium mb-1">FECHA DE REGRESO:</label>
+                <input type="date"
+                  value={searchParams.returnDate}
+                  onChange={(e) => setSearchParams({ ...searchParams, returnDate: e.target.value })}
+                  className="w-full  border-0 border-gray-300  focus:outline-none focus:border-gray-500 inline-flex  justify-between gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" />
+              </div>
+              <div className="w-full sm:w-1/2 md:w-1/5">
+                <label className="inline-flex items-center text-gray-900 text-sm font-medium mb-1">¿CUANTOS?:</label>
+                <input type="number"
+                  value={searchParams.numberOfPeople}
+                  onChange={(e) => setSearchParams({ ...searchParams, numberOfPeople: e.target.value })}
+                  className="w-full  border-0 border-gray-300  focus:outline-none focus:border-gray-500 inline-flex  justify-between gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" />
+
+              </div>
+
+              <div className="w-full sm:w-1/3 md:w-1/5 flex items-end justify-center">
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold  w-72 py-2 px-2 h-10 rounded-lg  text-md">
+                  Buscar
+                </button>
+              </div>
+            </div>
+          </div>
+          {/* </div> */}
+        </div>
+      </form>
 
 
-         </div>
+  </div>
 
     
              
