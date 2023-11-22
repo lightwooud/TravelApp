@@ -68,7 +68,7 @@
                                   
                     <td>
                         <p className=" pb-5 pr-5  text-center">Precio total: {new Intl.NumberFormat('es-us', { style: 'currency', currency: 'COP' }).format(flightOffers.priceBreakdown.totalRounded.units)}</p>
-                        <button className="px-4 py-3 mb-2 leading-loose text-md text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex">Reservar</button>
+      
                     </td>
                 
                   </tr>

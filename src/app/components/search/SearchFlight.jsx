@@ -230,9 +230,9 @@ return (
                  <ResultsFlights data={data} />
                 ) :(
                   <div className="w-full h-screen">
-                  <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
-                  <div className="absolute inset-0 bg-black opacity-70"></div>
-                </div>
+                    <video muted autoPlay loop src="/video.mp4" className="w-full h-full object-cover"></video>
+                  
+                  </div>
                 )}
                  
                  
