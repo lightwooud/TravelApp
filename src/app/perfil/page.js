@@ -7,7 +7,6 @@ const page = () => {
     <div className="flex  flex-col items-center justify-between ">
       <Navbar />
       <Perfil />
-      <Footer />
     </div>
   )
 }

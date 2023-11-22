@@ -66,63 +66,64 @@ export default function Registro() {
     }
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div className="pt-6  pl-10 space-y-4 md:space-y-6 sm:p-8 ">
-                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        CREA UNA CUENTA
-                    </h1>
-                    <form onSubmit={(e) => {
-                                            e.preventDefault();
-                                            signUpNewUser(e);
-                                            handleRegister(e);
-                                            }} className="space-y-4 md:space-y-6 justify-center items-center text-black">
- 
-                        <div>
-                            <label for="nombre" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
-                        </div>
-                        <div>
-                            <label for="apellido" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                            <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
-                        </div>
-                        <div>
-                            <label for="fecha_nacimiento" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Nacimiento</label>
-                            <input type="date" value={fecha_nacimiento} onChange={(e) => setFecha_nacimiento(e.target.value)} />
-                        </div>
-                        <div>
-                            <label for="nickName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
-                            <input type="text" value={nickName} onChange={(e) => setnickName(e.target.value)} />
-                        </div>
-                        <div>
-                            <label for="celular" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                            <input type="number"  value={celular} onChange={(e) => setCelular(e.target.value)} />
-                        </div>
-                        <div>
-                            <label for="correo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="correo" value={correo} onChange={(e) => setCorreo(e.target.value)}/>
-                        </div>
-                        <div>
-                            <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-                        <div className="flex items-start">
-                            <div className="flex">
-                                <input type="text" className="w-5 h-5"/>
-                            </div>
-                            <div className="ml-3 text-sm">
-                                <label for="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
-                            </div>
-                        </div>
-                        <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Crear cuenta</button>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Ya tienes una cuenta? <a href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Inicia sesion</a>
-                        </p>
-                    </form>
+    <section className="overflow-hidden style-login ">
+      <div className='w-full p-6 bg-white rounded-xl shadow-md lg:max-w-lg'>
+        <div className="w-full ml-5 md:w-auto items-center justify-center">
+          <div className="pt-6  pl-10 space-y-1 md:space-y-6 sm:p-8 ">
+            <h5 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              CREA UNA CUENTA
+            </h5>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              signUpNewUser(e);
+              handleRegister(e);
+            }} className="space-y-4 md:space-y-4 justify-center items-center text-black">
+
+              <div>
+
+                <label for="nombre" className='block text-md font-semibold text-gray-800'>Nombre</label>
+                <input type="text" value={nombre} placeholder='Ingresa tu nombre' onChange={(e) => setNombre(e.target.value)} className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40' />
+              </div>
+              <div>
+                <label for="apellido"  className="block text-md font-semibold text-gray-800">Apellidos</label>
+                <input type="text" placeholder='Ingresa tus apellidos' value={apellido} onChange={(e) => setApellido(e.target.value)} className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40' />
+              </div>
+              <div>
+                <label for="fecha_nacimiento" className="block text-md font-semibold text-gray-800">Fecha Nacimiento</label>
+                <input type="date" value={fecha_nacimiento} onChange={(e) => setFecha_nacimiento(e.target.value)}  className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40'/>
+              </div>
+              <div>
+                <label for="nickName" className="block text-md font-semibold text-gray-800">Nombre de usuario</label>
+                <input type="text" value={nickName} placeholder='Ingresa un nombre de usuario' onChange={(e) => setnickName(e.target.value)}  className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40'/>
+              </div>
+              <div>
+                <label for="celular" className="block text-md font-semibold text-gray-800">Celular</label>
+                <input type="number" value={celular} placeholder='Ingresa tu numero de telefono' onChange={(e) => setCelular(e.target.value)} className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40'/>
+              </div>
+              <div>
+                <label for="correo" className="block text-md font-semibold text-gray-800">Correo Electrónico</label>
+                <input type="correo" value={correo} placeholder='Ingresa un correo electrónico' onChange={(e) => setCorreo(e.target.value)}  className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40'/>
+              </div>
+              <div>
+                <label for="password" className="block text-md font-semibold text-gray-800">Contraseña</label>
+                <input type="password" value={password} placeholder='Ingresa una contraseña' onChange={(e) => setPassword(e.target.value)} className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40'/>
+              </div>
+              {/* <div className="flex items-start">
+                <div className="flex">
+                  <input type="text" className="w-5 h-5" />
                 </div>
-            </div>
+                <div className="ml-3 text-sm">
+                  <label for="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
+                </div>
+              </div> */}
+              <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold   py-2 mt-2 px-2 h-10 rounded-lg  text-md">Crear cuenta</button>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                Ya tienes una cuenta? <a href="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Inicia sesion</a>
+              </p>
+            </form>
+          </div>
         </div>
+      </div>
     </section>
   )
 }

@@ -22,11 +22,7 @@ const contentStyle = {
   zIndex: 0,// Agrega espacio en la parte inferior para el footer
 };
 
-const footerStyle = {
-  position: "relative", // Cambia a position: relative
-  zIndex: 1,
-  flexShrink: 0,
-};
+
 
 
 
@@ -44,9 +40,7 @@ const page = () => {
         
       </div>
       
-      <div style={footerStyle}>
-        <Footer />
-      </div>
+      
     
     </div>
     

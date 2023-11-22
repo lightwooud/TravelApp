@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination } from "swiper/modules";
 import { RxArrowTopRight } from "react-icons/rx";
 
+
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
@@ -22,6 +24,7 @@ const SearchAlojamientos = () => {
     checkInDate: '',
     checkOutDate: '',
     numPersons: 1,
+    currency: "COP"
   });
 
   const [destIds, setDestIds] = useState([]);
@@ -53,7 +56,8 @@ const SearchAlojamientos = () => {
       
 
       const response = await fetch(
-        `https://apidojo-booking-v1.p.rapidapi.com/properties/list?dest_ids=${destIdsList}&arrival_date=${searchParams.checkInDate}&departure_date=${searchParams.checkOutDate}&guest_qty=${searchParams.numPersons}`,
+        `https://apidojo-booking-v1.p.rapidapi.com/properties/list?dest_ids=${destIdsList}&arrival_date=${searchParams.checkInDate}&departure_date=${searchParams.checkOutDate}&guest_qty=${searchParams.numPersons}&currency=${searchParams.currency
+      }`,
         {
           method: 'GET',
           headers: headers,
@@ -106,18 +110,18 @@ const SearchAlojamientos = () => {
   
           <form onSubmit={handleFormSubmit}>
 
-              <div className=" absolute top-0 left-0  w-full flex flex-col justify-center results-cente  h-96 ">
-                <div className=" flex results-center justify-center   ">
+              <div className=" absolute top-0 left-0  w-full flex flex-col justify-center  flightOfferss-center h-96 ">
+                <div className=" flex flightOfferss-center justify-center ">
                     
-                <div className="w-auto pt-2 pl-20 pb-2  bg-white border rounded-md shadow-md custom-width">
+                <div className="  pl-24 p-5 items-center bg-white border rounded-md shadow-md custom-width">
                 
-                    <div className="grid grid-cols-6  gap-4 text-black">
-                        <div className="row-span-1 col-span-1">
-                            <label className="inline-flex results-center text-black">PAIS:</label>
+                    <div className="grid grid-cols-6 gap-4 text-black">
+                        <div className="row-span-1 col -span-1">
+                            <label className="inline-flex  flightOfferss-center text-black">PAIS:</label>
                             <select
                             value={selectedCountry}
                             onChange={(e) => setSelectedCountry(e.target.value)}
-                            className="block w-full py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+                            className="block w-full   py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
                             >
                             <option value="">Seleccionar país</option>
                             {countries.map((country, index) => (
@@ -126,10 +130,10 @@ const SearchAlojamientos = () => {
                                 </option>
                             ))}
                             </select>
-                    </div>
+                      </div>
         
                         <div className="row-span-1 col-span-1">
-                            <label className="inline-flex results-center text-black">FECHA DE SALIDA:</label>
+                            <label className="inline-flex flightOfferss-center text-black">SALIDA:</label>
                             <input type="date"
                             value={searchParams.checkInDate}
                             onChange={(e) =>setSearchParams({ ...searchParams, checkInDate: e.target.value })}
@@ -137,19 +141,19 @@ const SearchAlojamientos = () => {
                         </div>
 
                         <div className="row-span-1 col-span-1">
-                            <label className="inline-flex results-center text-black">FECHA DE REGRESO:</label>
+                            <label className="inline-flex flightOfferss-center text-black">REGRESO:</label>
                             <input type="date" value={searchParams.checkOutDate}
                             onChange={(e) =>setSearchParams({ ...searchParams, checkOutDate: e.target.value })} className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500" />
                         </div>
                         <div className="row-span-1 col-span-1">
-                            <label className="inline-flex results-center text-black">¿CUANTOS?:</label>
+                            <label className="inline-flex flightOfferss-center text-black">¿CUANTOS?:</label>
                             <input type="number"
                             value={searchParams.numPersons}
                             onChange={(e) =>setSearchParams({ ...searchParams, numPersons: e.target.value })} className="block w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500" />
                             
                         </div>  
 
-                        <div className=" inline-flex results-center pt-5 row-span-1 col-span-1">
+                        <div className=" inline-flex flightOfferss-center pt-5 row-span-1 col-span-1">
                             <button  type="submit" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Buscar
                             </button>
@@ -164,7 +168,7 @@ const SearchAlojamientos = () => {
           
           </form>
           
-        <div className="flex items-center justify-center flex-col h-[1300px] ">
+        <div className="flex   w-full  justify-center flex-col h-[1300px] ">
  
           <Swiper
             breakpoints={{
@@ -189,7 +193,7 @@ const SearchAlojamientos = () => {
           {data.length > 0 &&(
             data.map((result) => (
               <SwiperSlide key={result.hotel_id}> 
-                <div className="flex flex-col gap-6 mb-20 group relative shadow-lg text-white rounded-xl px-6 py-8 h-[250px] w-[215px] lg:h-[400px] lg:w-[350px] overflow-hidden cursor-pointer">
+                <div className="flex flex-col gap-6 mb-20 group relative shadow-lg text-white rounded-xl px-6 py-8 h-[250px] w-[215px] lg:h-[400px] lg:w-[350px]  cursor-pointer">
                   <div
                       className="absolute inset-0 bg-cover bg-center"
                       style={{ backgroundImage: `url(${result.main_photo_url})` }}

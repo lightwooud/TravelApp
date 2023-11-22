@@ -23,9 +23,9 @@
         }
     };
 
-    export const searchFlights = async (destinationId, originId, departureDate, returnDate, currency_code, people) => {
+    export const searchFlights = async (destinationId, originId, departureDate, returnDate, currency_code, people, tripType) => {
         try {
-            const response = await fetch(`https://booking-com15.p.rapidapi.com/api/v1/flights/searchFlights?fromId=${destinationId}&toId=${originId}&departDate=${departureDate}&returnDate=${returnDate}&currency_code=${currency_code}&adults=${people}`, {
+            const response = await fetch(`https://booking-com15.p.rapidapi.com/api/v1/flights/searchFlights?fromId=${destinationId}&toId=${originId}&departDate=${departureDate}&returnDate=${returnDate}&currency_code=${currency_code}&adults=${people}&tripType=${tripType}`, {
       method: 'GET',
       headers: headers,
     });

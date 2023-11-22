@@ -1,93 +1,84 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Pagination } from "swiper/modules";
-import { RxArrowTopRight } from "react-icons/rx";
+  const ResultsFlights = ({ data }) => {
+    return (
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
-
-const ResultsFlights = ({ data }) => {
-  return (
-    <div className="flex items-center justify-center flex-col h-[1550px]  z-0 ">
-      <Swiper
-            breakpoints={{
-              340: {
-                slidesPerView: 2,
-                spaceBetween: 15,
-              },
-              700: {
-                slidesPerView: 3,
-                spaceBetween: 15,
-              },
-            }}
-            freeMode={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[FreeMode, Pagination]}
-            className="max-w-[90%] lg:max-w-[80%] "
-          >
-
-        {data.length > 0 && (
-          data.map((flightOffers) => (
-            <SwiperSlide key={flightOffers.token} className="flight-card  flex  justify-center">
-                   <p className="text-black">----------------------------------------</p>
-                    <label className="text-black">IDA</label>
-                {flightOffers.segments.map((segments, segIndex) => (
-                  
-               
+    
+        <table className="items-center align-middle  top-0 left-0  w-full flex flex-col justify-center flightOfferss-center pb-5 ">
+          
+        <tbody>
+          {data.length > 0 && (
+            data.map((flightOffers) => (
+              <tr key={flightOffers.token} className="flight-card items-center flex  justify-center border-separate  border-spacing-5 bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100  text-black  font-semibold  ">
                 
-      
-                  <li key={segIndex}>
-
-                   
-                    <p className="text-black">
-                       Hora salida: {segments.departureTime}
-                    </p>
-                    <p className="text-black">
-                      Hora llegada: {segments.arrivalTime}
-                       
-                    </p>
-                    {segments.legs.map((legs, legIndex) =>(
-                        <li key={legIndex}>
-                          <p className="text-black">
-                            Ciudad origen: {legs.departureAirport.name}
-                          </p>
-                          <p className="text-black">
-                            Ciudad Destino: {legs.arrivalAirport.name}  
-                          </p>
-                          <p className="text-black">Numero de vuelo: {legs.flightInfo.carrierInfo.operatingCarrier}{legs.flightInfo.flightNumber}</p>
-                          <p className="text-black">Clase: {legs.cabinClass}</p>
-                      
-                          {legs.carriersData.map((carriersData, carryIndex)=>(
-                            <li key={carryIndex} className=" grid-cols-2">
-                                  <p className="text-black">Aerolinea: {carriersData.name}</p>
-                                  <img src={carriersData.logo}></img>
-                                 
-                                  
-                            </li>
-                           
-                            
-                          ))}
-                          
-                          <p className="text-black">----------------------------------------</p>
-                              <label className="text-black">REGRESO
-                              </label>
-                        </li>
-                    ))}
                     
-                  </li>
-                ))}
-  
-                  <p className="text-black">Precio total: {flightOffers.priceBreakdown.totalRounded.units} {flightOffers.priceBreakdown.totalRounded.currencyCode}</p>
-                 
-                
-                    </SwiperSlide>
-           ))
-          )}
-          </Swiper>
-        </div>
-  )
-}
+                    
+                    {flightOffers.segments.map((segments, segIndex) => (
+                      <tr key={segIndex}>
 
-export default ResultsFlights
+                      <td>
+                            <p >
+                              Hora salida: {segments.departureTime}
+                            </p>
+                        </td>
+                        <td>
+                        
+                          <p>
+                            Hora llegada: {segments.arrivalTime}
+                          </p>
+                        </td>
+                        <td></td>
+                        {segments.legs.map((legs, legIndex) =>(
+                          <tr key={legIndex} >
+                                <td>
+                                  <p >
+                                  Ciudad origen: {legs.departureAirport.name}
+                                  </p>
+                                  <p >Numero de vuelo: {legs.flightInfo.carrierInfo.operatingCarrier}{legs.flightInfo.flightNumber}</p>
+                                </td>
+                                <td>
+                                  <p >
+                                    Ciudad Destino: {legs.arrivalAirport.name}  
+                                  </p>
+                                  <p >Clase: {legs.cabinClass}</p>
+                                </td>
+                          </tr>
+                        ))}
+                        {segments.legs.map((legs, LegssIndex)=>(
+                            <tr key={LegssIndex} >
+                          
+                                {legs.carriersData.map((carriersData, carryIndex)=>(
+                                  <td key={carryIndex} className=" grid-cols-2">
+                                        
+                                          <p >Aerolinea: {carriersData.name}</p>
+                                          <img src={carriersData.logo}></img>
+                                          
+                                          
+                                    </td>
+                                    
+                                  ))}
+                                    
+                              </tr>
+                            
+                              
+                            ))}
+                            
+                      
+                    </tr>
+                    
+                  ))}
+                                  
+                    <td>
+                        <p className=" pb-5 pr-5  text-center">Precio total: {new Intl.NumberFormat('es-us', { style: 'currency', currency: 'COP' }).format(flightOffers.priceBreakdown.totalRounded.units)}</p>
+                        <button className="px-4 py-3 mb-2 leading-loose text-md text-center text-white font-semibold bg-gray-600 hover:bg-blue-700 rounded-xl hidden md:flex">Reservar</button>
+                    </td>
+                
+                  </tr>
+                        
+            ))
+            )}
+            </tbody>
+            </table>
+      
+    )
+  }
+
+  export default ResultsFlights

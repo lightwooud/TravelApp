@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import supabase from '../../api/auth/lib/supabase'
 import {searchDestination, searchFlights} from "../../api/getApiFlights"
 import ResultsFlights from './ResultsFlights';
-
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 const SearchFlight = () => {
 
@@ -18,7 +19,8 @@ const SearchFlight = () => {
     returnDate:'',
     numberOfPeople: '',
     currency_code: "COP", 
-    type: "AIRPORT" 
+    type: "AIRPORT",
+    tripType:'', 
   });
 
   const performSearch = async () => {
@@ -31,7 +33,8 @@ const SearchFlight = () => {
         searchParams.departureDate,
         searchParams.returnDate,
         searchParams.currency_code,
-        searchParams.numberOfPeople
+        searchParams.numberOfPeople,
+        searchParams.tripType
       );
       
       setData(flightData);
@@ -136,29 +139,51 @@ const SearchFlight = () => {
 return (
 
   <>
- 
+    <div>
+      
         <form onSubmit={handleSearch}>
 
-              <div className=" absolute top-0 left-0  w-full flex flex-col justify-center flightOfferss-cente   h-60 ">
+              <div className=" relative top-0 left-0  w-full flex flex-col justify-center flightOfferss-cente  h-60 ">
                 <div className=" flex flightOfferss-center justify-center   ">
                     
-                <div className="w-auto pt-2 pl-20 pb-2  bg-white border rounded-md shadow-md custom-width">
-                
+                <div className="w-auto p-7 items-center bg-white border rounded-md shadow-md custom-width">
+                      <label className="inline-flex flightOfferss-center text-black">Tipo de vuelo:</label>
+                                <div className="flex items-center text-black">
+                                  <input
+                                    type="checkbox"
+                                    id="oneWayCheckbox"
+                                    checked={searchParams.type === "ONEWAY"}
+                                    onChange={() =>
+                                      setSearchParams({
+                                        ...searchParams,
+                                        type: searchParams.type === "ONEWAY" ? "ROUND_TRIP" : "ONEWAY",
+                                        returnDate: searchParams.type === "ONEWAY" ? "" : searchParams.returnDate,
+                                      })
+                                    }
+                                  />
+                                  <label htmlFor="oneWayCheckbox" className="ml-2">
+                                    Solo ida
+                                  </label>
+                                  </div>
                     <div className="grid grid-cols-6  gap-4 text-black">
+                      
                         <div className="row-span-1 col-span-1">
+                     
                             <label className="inline-flex flightOfferss-center text-black">CIUDAD ORIGEN:</label>
+                            <Menu as="div" className="relative block text-left">
                             <select
                             value={selectedCity}
                             onChange={(e) => setSelectedCity(e.target.value)}
-                            className="block w-full py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+                            className=" block w-full py-2 px-3 border text-black border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
                             >
                             <option value="">CIUDAD DE DESTINO</option>
                             {cities.map((city, index) => (
-                                <option key={index} value={city}>
+                                <option  key={index} value={city}>
                                 {city}
                                 </option>
                             ))}
                             </select>
+                            </Menu>
                         </div>
 
                         <div className="row-span-1 col-span-1">
@@ -178,7 +203,7 @@ return (
                         </div>
         
                         <div className="row-span-1 col-span-1">
-                            <label className="inline-flex flightOfferss-center text-black">FECHA DE SALIDA:</label>
+                            <label className="inline-flex flightOfferss-center text-black">SALIDA:</label>
                             <input type="date"
                            value={searchParams.departureDate}
                            onChange={(e) =>setSearchParams({ ...searchParams, departureDate: e.target.value })}
@@ -187,11 +212,11 @@ return (
                         </div>
 
                         <div className="row-span-1 col-span-1">
-                            <label className="inline-flex flightOfferss-center text-black">FECHA DE REGRESO:</label>
+                            <label className="inline-flex flightOfferss-center text-black">REGRESO:</label>
                             <input type="date" 
                             value={searchParams.returnDate}
                             onChange={(e) =>setSearchParams({ ...searchParams, returnDate: e.target.value })}
-                             className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500" />
+                             className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500" disabled={searchParams.type === "ONEWAY"} />
                         </div>
                         <div className="row-span-1 col-span-1">
                             <label className="inline-flex flightOfferss-center text-black">¿CUANTOS?:</label>
@@ -218,12 +243,20 @@ return (
           </form>
 
 
-         
+         </div>
+
     
-         
-            <ResultsFlights data={data} />
-   
-                              
+             
+              {data.length > 0 ? (
+                 <ResultsFlights data={data} />
+                ) :(
+                  <div className="w-full">
+                    <video muted autoPlay loop src="/video.mp4" className="w-full"></video>
+                  </div>
+                )}
+                 
+                 
+                        
 
 
 </>
